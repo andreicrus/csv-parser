@@ -7,6 +7,7 @@ namespace csv_parser
     {
         static void Main(string[] args)
         {
+            //first commit, debug scope
             var result = CSVParser_IO.ReadCSV(@".\Data\05-06.csv");
             Console.ReadLine();
         }
