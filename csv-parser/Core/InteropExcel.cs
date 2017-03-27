@@ -39,10 +39,6 @@ namespace csv_parser.Core
 
             for(int i=0; i< finalList.Count; i++)
             {
-                for (int j=0; j<finalList[i].Length; j++)
-                {
-
-                }
             }
 
             ClosedXML.ExportToExcel(table,Path.GetFileName(pathOfExcelFile));
