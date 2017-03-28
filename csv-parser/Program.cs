@@ -37,13 +37,44 @@ namespace csv_parser
                 }
             }
 
+            //ManipulateColumns(commonHeaderTemplate);
+            RemoveColumns(commonHeaderTemplate);
+
+            Console.WriteLine("the end");
+            Console.ReadLine();
+        }
+
+        internal static void ManipulateColumns(List<string> commonHeaderTemplate)
+        {
             foreach (string file in Directory.EnumerateFiles(ConfigurationManager.AppSettings["PremierLeagueData"], "*.csv"))
             {
                 InteropExcel.GetValues(file, commonHeaderTemplate);
             }
+        }
 
-            Console.WriteLine("the end");
-            Console.ReadLine();
+        internal static void RemoveColumns(List<string> commonHeaderTemplate)
+        {
+            foreach (string file in Directory.EnumerateFiles(ConfigurationManager.AppSettings["PremierLeagueData"], "*.csv"))
+            {
+                List<string> fileColumns = CSVParser_IO.ReadCSV(file);
+                List<string> fileHeaderColumn = new List<string>();
+
+                int numberofcolumns = InteropExcel.GetNumberOfColumns(file);
+
+                for (int i = 0; i < numberofcolumns; i++)
+                {
+                    fileHeaderColumn.Add(fileColumns[i]);
+                }
+                List<string> extraColumns = new List<string>();
+                foreach (var item in fileHeaderColumn)
+                {
+                    if (!commonHeaderTemplate.Contains(item))
+                    {
+                        extraColumns.Add(item);
+                    }
+                }
+                InteropExcel.RemoveColumns(file, extraColumns);
+            }
         }
     }
 }

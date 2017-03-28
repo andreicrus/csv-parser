@@ -1,5 +1,4 @@
-﻿using csv_parser.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -10,7 +9,7 @@ namespace csv_parser.Core
 {
     public class InteropExcel
     {
-        public static void GetValues(string pathOfExcelFile, List<string> commonTemplateValues)
+        internal static void GetValues(string pathOfExcelFile, List<string> commonTemplateValues)
         {
             Excel.Application excelApp = new Excel.Application();
 
@@ -28,25 +27,22 @@ namespace csv_parser.Core
 
             Excel.Worksheet sheet = workbook.Sheets[fileName];
 
-            DataTable table = new DataTable();
-
             foreach (var item in commonTemplateValues)
             {
                 var result = RetrieveColumnByHeader(sheet, item);
                 finalList.Add(result);
             }
             workbook.Close();
+            excelApp.Quit();
 
-            for(int i=0; i< finalList.Count; i++)
-            {
-            }
+            DataTable table = new DataTable();
 
             ClosedXML.ExportToExcel(table,Path.GetFileName(pathOfExcelFile));
 
             //CreateCSVFile(table, ConfigurationManager.AppSettings["Output"]);
         }
 
-        public static List<string>[] RetrieveColumnByHeader(Excel.Worksheet sheet, string FindWhat)
+        internal static List<string>[] RetrieveColumnByHeader(Excel.Worksheet sheet, string FindWhat)
         {
             Excel.Range rngHeader = sheet.Rows[1] as Excel.Range;
 
@@ -87,14 +83,60 @@ namespace csv_parser.Core
             return columnValue;
         }
 
-        public static void CreateDataTable(List<string>[] result,string fileName, DataTable table)
+        internal static void RemoveColumns(string file, List<string> extraColumns)
+        {
+            Excel.Application excelApp = new Excel.Application();
+
+            excelApp.DisplayAlerts = false;
+
+            var filePath = Path.GetFullPath(file);
+
+            Excel.Workbook workbook = excelApp.Workbooks.Open(filePath, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
+                                                                Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
+                                                                Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+
+            var fileName = Path.GetFileNameWithoutExtension(file);
+
+            Excel.Worksheet sheet = workbook.Sheets[fileName];
+
+            foreach (var col in extraColumns)
+            {
+                Excel.Range rngHeader = sheet.Rows[1] as Excel.Range;
+                Excel.Range range = sheet.UsedRange as Excel.Range;
+
+                int rowCount = sheet.UsedRange.Rows.Count;
+                int columnCount = sheet.UsedRange.Columns.Count;
+
+                Excel.Range rngResult = null;
+
+                List<string>[] columnValue = new List<string>[columnCount];
+
+                rngResult = rngHeader.Find(What: col, LookIn: Excel.XlFindLookIn.xlValues,
+                LookAt: Excel.XlLookAt.xlWhole, SearchOrder: Excel.XlSearchOrder.xlByColumns, MatchCase: true);
+
+                rngResult.EntireColumn.Delete();
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(rngResult);
+
+                int columnCount2 = sheet.UsedRange.Columns.Count;
+            }
+
+            string outputPath = Path.GetFullPath(ConfigurationManager.AppSettings["Output"]) + Path.GetFileName(file);
+            object misValue = System.Reflection.Missing.Value;
+
+            workbook.SaveAs(outputPath, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+            workbook.Close(true, misValue, misValue);
+
+            excelApp.Quit();
+        }
+
+        internal static void CreateDataTable(List<string>[] result,string fileName, DataTable table)
         {
             System.Data.DataColumn newColumn = new System.Data.DataColumn();
             newColumn.DefaultValue = result;
             table.Columns.Add(newColumn);
         }
 
-        public static void CreateCSVFile(DataTable dt, string strPath)
+        internal static void CreateCSVFile(DataTable dt, string strPath)
         {
             var strFilePath = Path.GetFullPath(strPath);
             StreamWriter sw = new StreamWriter(strFilePath, true);
@@ -126,6 +168,28 @@ namespace csv_parser.Core
                 sw.Write(sw.NewLine);
             }
             sw.Close();
+        }
+        internal static int GetNumberOfColumns(string pathOfExcelFile)
+        {
+            Excel.Application excelApp = new Excel.Application();
+
+            excelApp.DisplayAlerts = false;
+
+            var filePath = Path.GetFullPath(pathOfExcelFile);
+
+            Excel.Workbook workbook = excelApp.Workbooks.Open(filePath, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
+                                                                Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
+                                                                Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+
+            var fileName = Path.GetFileNameWithoutExtension(pathOfExcelFile);
+
+            Excel.Worksheet sheet = workbook.Sheets[fileName];
+            int result = sheet.UsedRange.Columns.Count;
+
+            workbook.Close();
+            excelApp.Quit();
+
+            return result;
         }
     }
 }
