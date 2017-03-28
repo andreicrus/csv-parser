@@ -108,6 +108,18 @@
     <EmbeddedResource Include="Data\PremierLeague\16-17.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <None Include="Data\Output\05-06.csv" />
+    <None Include="Data\Output\06-07.csv" />
+    <None Include="Data\Output\07-08.csv" />
+    <None Include="Data\Output\08-09.csv" />
+    <None Include="Data\Output\09-10.csv" />
+    <None Include="Data\Output\10-11.csv" />
+    <None Include="Data\Output\11-12.csv" />
+    <None Include="Data\Output\12-13.csv" />
+    <None Include="Data\Output\13-14.csv" />
+    <None Include="Data\Output\14-15.csv" />
+    <None Include="Data\Output\15-16.csv" />
+    <None Include="Data\Output\16-17.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
