@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 
 namespace csv_parser
 {
@@ -37,8 +38,10 @@ namespace csv_parser
                 }
             }
 
+            CheckColumnsOrder();
+
             //ManipulateColumns(commonHeaderTemplate);
-            RemoveColumns(commonHeaderTemplate);
+            //RemoveColumns(commonHeaderTemplate);
 
             Console.WriteLine("the end");
             Console.ReadLine();
@@ -74,6 +77,52 @@ namespace csv_parser
                     }
                 }
                 InteropExcel.RemoveColumns(file, extraColumns);
+            }
+        }
+
+        internal static void CheckColumnsOrder()
+        {
+            List<string> templateModel = new List<string>();
+            List<string> dataModel = new List<string>();
+
+            int k = 0;
+#warning hardcode...
+            foreach (string file in Directory.EnumerateFiles(@"C:\Users\andreic\documents\visual studio 2015\Projects\csv-parser\csv-parser\Data\Output\PremierLeague\", "*.csv"))
+            {
+                List<string> fileColumns = CSVParser_IO.ReadCSV(file);
+                List<string> fileHeaderColumn = new List<string>();
+
+                int numberofcolumns = InteropExcel.GetNumberOfColumns(file);
+
+                for (int i = 0; i < numberofcolumns; i++)
+                {
+                    fileHeaderColumn.Add(fileColumns[i]);
+                }
+
+                foreach (var elem in fileHeaderColumn)
+                {
+                    if (k == 0)
+                    {
+                        templateModel.Add(elem);
+                    }
+                    else
+                    {
+                        dataModel.Add(elem);
+                    }
+                }
+                if(k>0)
+                {
+                    if (templateModel.SequenceEqual(dataModel))
+                    {
+                        Console.WriteLine("OK");
+                    }
+                    else
+                    {
+                        Console.WriteLine("NOT OK");
+                    }
+                }
+                k = k+1;
+                dataModel = new List<string>();
             }
         }
     }

@@ -108,18 +108,30 @@
     <EmbeddedResource Include="Data\PremierLeague\16-17.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <None Include="Data\Output\PremierLeague\05-06.csv" />
-    <None Include="Data\Output\PremierLeague\06-07.csv" />
-    <None Include="Data\Output\PremierLeague\07-08.csv" />
-    <None Include="Data\Output\PremierLeague\08-09.csv" />
-    <None Include="Data\Output\PremierLeague\09-10.csv" />
-    <None Include="Data\Output\PremierLeague\10-11.csv" />
-    <None Include="Data\Output\PremierLeague\11-12.csv" />
-    <None Include="Data\Output\PremierLeague\12-13.csv" />
-    <None Include="Data\Output\PremierLeague\13-14.csv" />
-    <None Include="Data\Output\PremierLeague\14-15.csv" />
-    <None Include="Data\Output\PremierLeague\15-16.csv" />
-    <None Include="Data\Output\PremierLeague\16-17.csv" />
+    <None Include="Data\Output\PremierLeague\..corupted\05-06.csv" />
+    <None Include="Data\Output\PremierLeague\..corupted\06-07.csv" />
+    <None Include="Data\Output\PremierLeague\..corupted\07-08.csv" />
+    <None Include="Data\Output\PremierLeague\..corupted\08-09.csv" />
+    <None Include="Data\Output\PremierLeague\..corupted\09-10.csv" />
+    <None Include="Data\Output\PremierLeague\..corupted\10-11.csv" />
+    <None Include="Data\Output\PremierLeague\..corupted\11-12.csv" />
+    <None Include="Data\Output\PremierLeague\..corupted\12-13.csv" />
+    <None Include="Data\Output\PremierLeague\..corupted\13-14.csv" />
+    <None Include="Data\Output\PremierLeague\..corupted\14-15.csv" />
+    <None Include="Data\Output\PremierLeague\..corupted\15-16.csv" />
+    <None Include="Data\Output\PremierLeague\..corupted\16-17.csv" />
+    <None Include="Data\Output\PremierLeague\s05-06.csv" />
+    <None Include="Data\Output\PremierLeague\s06-07.csv" />
+    <None Include="Data\Output\PremierLeague\s07-08.csv" />
+    <None Include="Data\Output\PremierLeague\s08-09.csv" />
+    <None Include="Data\Output\PremierLeague\s09-10.csv" />
+    <None Include="Data\Output\PremierLeague\s10-11.csv" />
+    <None Include="Data\Output\PremierLeague\s11-12.csv" />
+    <None Include="Data\Output\PremierLeague\s12-13.csv" />
+    <None Include="Data\Output\PremierLeague\s13-14.csv" />
+    <None Include="Data\Output\PremierLeague\s14-15.csv" />
+    <None Include="Data\Output\PremierLeague\s15-16.csv" />
+    <None Include="Data\Output\PremierLeague\s16-17.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
