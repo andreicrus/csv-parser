@@ -120,6 +120,7 @@
     <None Include="Data\Output\PremierLeague\..corupted\14-15.csv" />
     <None Include="Data\Output\PremierLeague\..corupted\15-16.csv" />
     <None Include="Data\Output\PremierLeague\..corupted\16-17.csv" />
+    <None Include="Data\Output\PremierLeague\05-17 all.xlsx" />
     <None Include="Data\Output\PremierLeague\s05-06.csv" />
     <None Include="Data\Output\PremierLeague\s06-07.csv" />
     <None Include="Data\Output\PremierLeague\s07-08.csv" />

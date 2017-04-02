@@ -11,7 +11,7 @@ namespace csv_parser
     {
         static void Main(string[] args)
         {
-            List<string> templateFile = CSVParser_IO.ReadCSV(ConfigurationManager.AppSettings["TemplateFile"]);
+            /*List<string> templateFile = CSVParser_IO.ReadCSV(ConfigurationManager.AppSettings["TemplateFile"]);
             List<string> headerTemplate = new List<string>();
             List<string> commonHeaderTemplate = new List<string>();
 
@@ -36,9 +36,9 @@ namespace csv_parser
                         commonHeaderTemplate.Remove(column);
                     }
                 }
-            }
+            }*/
 
-            CheckColumnsOrder();
+            //CheckColumnsOrder();
 
             //ManipulateColumns(commonHeaderTemplate);
             //RemoveColumns(commonHeaderTemplate);
@@ -86,8 +86,8 @@ namespace csv_parser
             List<string> dataModel = new List<string>();
 
             int k = 0;
-#warning hardcode...
-            foreach (string file in Directory.EnumerateFiles(@"C:\Users\andreic\documents\visual studio 2015\Projects\csv-parser\csv-parser\Data\Output\PremierLeague\", "*.csv"))
+#warning hardcode...data/output content
+            foreach (string file in Directory.EnumerateFiles(@"D:\Andrei\Cariera\Proiecte Git\csv-parser\csv-parser\Data\Output\PremierLeague", "*.csv"))
             {
                 List<string> fileColumns = CSVParser_IO.ReadCSV(file);
                 List<string> fileHeaderColumn = new List<string>();
